@@ -13,6 +13,6 @@ for line in sys.stdin:
   number_of_words += len(words)
   number_of_characters += len(line)
 
-file.close()
+
 
 print("lines:", number_of_lines, "words:", number_of_words, "characters:", number_of_characters)
