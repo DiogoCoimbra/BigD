@@ -1,6 +1,5 @@
 import sys
 from collections import Counter
 
-my_str = "Mary had a little lamb"
-counter = Counter(my_str)
+counter = Counter(sys.stdin)
 print counter[sys.stdin]
