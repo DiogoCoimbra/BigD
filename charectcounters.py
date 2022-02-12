@@ -1,5 +1,9 @@
 import sys
 
+number_of_lines = 0
+number_of_words = 0
+number_of_characters = 0
+
 for line in sys.stdin:
   line = line.strip("\n")
 
