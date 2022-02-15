@@ -14,6 +14,4 @@ for line in sys.stdin:
   number_of_characters += len(line)
 
 
-a = number_of_characters/number_of_words
-
-print("lines:", number_of_lines, "words:", number_of_words, "characters:", number_of_characters, "average lenght of words", a)
+print("lines:", number_of_lines, "words:", number_of_words, "characters:", number_of_characters, "average lenght of words")
