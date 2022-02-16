@@ -11,5 +11,5 @@ for line in sys.stdin:
         if token2:
             print(token2 + TAB_CHAR + '1')
     for token3 in len(line):
-        if toke3:
+        if token3:
             print(token3 + TAB_CHAR + '1')
