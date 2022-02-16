@@ -7,7 +7,7 @@ for line in sys.stdin:
     for token in line.strip().split(" "):
         if token: 
             print(token + TAB_CHAR + '1')
-    for token2 in line.split("\n")
+    for token2 in line.strip("\n")
         if token2:
             print(token2 + TAB_CHAR + '1')
     for token3 in len(line)
