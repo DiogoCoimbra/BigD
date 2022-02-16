@@ -10,6 +10,6 @@ for line in sys.stdin:
     for token2 in line.strip("\n"):
         if token2:
             print(token2 + TAB_CHAR + '1')
-    for token3 in len(line):
+    for token3 in line.strip().split():
         if token3:
             print(token3 + TAB_CHAR + '1')
