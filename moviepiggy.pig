@@ -7,5 +7,10 @@ movies = LOAD '/root/input/u.item' USING PigStorage('|') AS (movie_id:int, movie
 
 joined = JOIN avg_ratings BY movie_id, movies BY movie_id;
 dataset = FOREACH joined GENERATE movies::movie_name as movie_name, avg_ratings::avg_rating as avg_rating;
-ordered = ORDER dataset BY SIZE(movie_name) desc;
+words = FOREACH input_lines GENERATE FLATTEN(TOKENIZE(movies)) AS word;
+filtered_words = FILTER words BY word MATCHES ‘\\w+’;
+word_groups = GROUP filtered_words BY word;
+word_count = FOREACH word_groups GENERATE COUNT(filtered_words) AS count, group AS word;
+ordered_word_count = ORDER word_count BY count DESC;
+DUMP ordered_word_count;
 
