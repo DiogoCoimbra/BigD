@@ -5,8 +5,6 @@ avg_ratings = FILTER avg_ratings BY count_rating >= 10;
 
 movies = LOAD '/root/input/u.item' USING PigStorage('|') AS (movie_id:int, movie_name:chararray);
 
-m_name = FOREACH movies GENERATE SUBSTRING(movie_name, 1, (int)SIZE(movie_name)) as name;
-
 B = foreach movies generate flatten(TOKENIZE((movies.chararray)$0)) as word;
 C = filter B by word matches '(.+)';
 D = foreach C generate flatten(TOKENIZE(REPLACE(word,'','|'), '|')) as letter;
