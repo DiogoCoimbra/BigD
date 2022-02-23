@@ -4,7 +4,19 @@ avg_ratings = FOREACH group_ratings GENERATE group as movie_id, AVG(ratings.rati
 avg_ratings = FILTER avg_ratings BY count_rating >= 10;
 
 movies = LOAD '/root/input/u.item' USING PigStorage('|') AS (movie_id:int, movie_name:chararray);
-ss= group movies by movie_name;
-s1= foreach ss generate group, count(movies);
-top10 = LIMIT s1 10;
+
+-- splits the line into words and flatten to get a word per row
+words = FOREACH movies GENERATE FLATTEN(TOKENIZE(line,' | ')) as word;
+
+-- group by word
+word_group = GROUP words BY word;
+
+-- count words
+word_count = FOREACH word_group GENERATE group, COUNT(words) as cnt;
+
+-- order words by count
+word_count_sorted = ORDER word_count BY cnt DESC;
+
+
+top10 = LIMIT word_count_sorted 10;
 DUMP top10;
