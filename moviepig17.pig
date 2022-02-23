@@ -7,7 +7,7 @@ movies = LOAD '/root/input/u.item' USING PigStorage('|') AS (movie_id:int, movie
 
 m_name = FOREACH movies GENERATE SUBSTRING(movie_name, 1, (int)SIZE(movie_name)) as name;
 
-B = foreach A generate flatten(TOKENIZE((movies:chararray)$0)) as word;
+B = foreach movies generate flatten(TOKENIZE((movies:chararray)$0)) as word;
 C = filter B by word matches '(.+)';
 D = foreach C generate flatten(TOKENIZE(REPLACE(word,'','|'), '|')) as letter;
 E = group D by letter;
