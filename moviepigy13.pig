@@ -6,7 +6,7 @@ avg_ratings = FILTER avg_ratings BY count_rating >= 10;
 movies = LOAD '/root/input/u.item' USING PigStorage('|') AS (movie_id:int, movie_name:chararray);
 
 group_movies = GROUP  movies BY movie_id;
-words = FOREACH group_movies GENERATE FLATTEN(TOKENIZE(:tuple(movie_name:chararray),' ')) as word;
+words = FOREACH group_movies GENERATE FLATTEN(TOKENIZE(tuple(movie_name:chararray),' ')) as word;
 
 
 
