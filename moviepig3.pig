@@ -8,5 +8,5 @@ movies = LOAD '/root/input/u.item' USING PigStorage('|') AS (movie_id:int, movie
 m_name = FOREACH movies GENERATE SUBSTRING(movie_name, 1, (int)SIZE(movie_name)) as name;
 
 joined = JOIN avg_ratings BY movie_id, movies BY movie_id;
-dataset = FOREACH joined GENERATE m_name:m_name as movie_names, avg_ratings::avg_rating as avg_rating;
+dataset = FOREACH joined GENERATE name:name as movie_names, avg_ratings::avg_rating as avg_rating;
 DUMP dataset;
