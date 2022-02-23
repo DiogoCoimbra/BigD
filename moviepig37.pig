@@ -4,7 +4,8 @@ avg_ratings = FOREACH group_ratings GENERATE group as movie_id, AVG(ratings.rati
 avg_ratings = FILTER avg_ratings BY count_rating >= 10;
 
 movies = LOAD '/root/input/u.item' USING PigStorage('|') AS (movie_id:int, movie_name:chararray);
-dataset = FOREACH movies GENERATE movies::movie_id , movies::movie_name, SIZE(movie_name);
+s1 = foreach movies generate SIZE(movie_name) as np_am
+dataset = FOREACH movies GENERATE movies::movie_id , movies::movie_name, np_am;
 
 top10 = LIMIT dataset 10;
 DUMP top10;
