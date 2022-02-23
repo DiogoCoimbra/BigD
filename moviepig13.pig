@@ -7,8 +7,11 @@ movies = LOAD '/root/input/u.item' USING PigStorage('|') AS (movie_id:int, movie
 
 m_name = FOREACH movies GENERATE SUBSTRING(movie_name, 1, (int)SIZE(movie_name)) as name;
 
+B = FOREACH movies GENERATE FLATTEN(TOKENIZE(REPLACE((movie_name.chararray)$0,'','|'), '|')) AS letter;
+C = FILTER B  BY letter != ' ';
+D = GROUP C BY letter;
 joined = JOIN avg_ratings BY movie_id, movies BY movie_id;
-dataset = FOREACH joined GENERATE movies::movie_name as movie_name, avg_ratings::avg_rating as avg_rating, count(movies.movie_name) as name;
-ordered = ORDER dataset BY name desc;
+dataset = FOREACH joined GENERATE movies::movie_name as movie_name, avg_ratings::avg_rating as avg_rating, D;
+ordered = ORDER dataset BY D desc;
 top10 = LIMIT ordered 10;
 DUMP top10;
