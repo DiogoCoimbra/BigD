@@ -6,7 +6,7 @@ avg_ratings = FILTER avg_ratings BY count_rating >= 10;
 movies = LOAD '/root/input/u.item' USING PigStorage('|') AS (movie_id:int, movie_name:chararray);
 
 -- splits the line into words and flatten to get a word per row
-words = FOREACH movies GENERATE FLATTEN(TOKENIZE(line,' | ')) as word;
+words = FOREACH movies GENERATE FLATTEN(TOKENIZE(movie_name,' | ')) as word;
 
 -- group by word
 word_group = GROUP words BY word;
