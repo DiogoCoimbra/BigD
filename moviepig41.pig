@@ -5,7 +5,7 @@ avg_ratings = FILTER avg_ratings BY count_rating >= 10;
 
 movies = LOAD '/root/input/u.item' USING PigStorage('|') AS (movie_id:int, movie_name:chararray);
 
-group_movies = GROUP movies BY movie_id, $0;
+group_movies = GROUP movies BY movie_id, flatten(TOKENIZE((movie_name)$0));
 count_movies = FOREACH group_movies GENERATE group as movie_id, count(movies.movie_name) as t1;
 dataset = FOREACH count_movies GENERATE movies::movie_id , movies::movie_name, t1;
 
