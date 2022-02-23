@@ -5,6 +5,6 @@ avg_ratings = FILTER avg_ratings BY count_rating >= 10;
 
 movies = LOAD '/root/input/u.item' USING PigStorage('|') AS (movie_id:int, movie_name:chararray);
 ss= group movies by movie_name;
-s1= foreach ss generate group count(movies);
+s1= foreach ss generate group, count(movies);
 top10 = LIMIT s1 10;
 DUMP top10;
