@@ -7,12 +7,9 @@ movies = LOAD '/root/input/u.item' USING PigStorage(',') AS (movie_id:int, movie
 
 group_movies = GROUP  movies BY movie_id;
 m_name = FOREACH group_movies GENERATE group as movie_id,  SIZE(movies.movie_name) as m_name;
-
-joined = JOIN m_name BY movie_id, movies BY movie_id;
-dataset = FOREACH joined GENERATE movies::movie_id , m_name::m_name as m_name, movies::movie_name as movie_name;
-ordered = ORDER dataset BY m_name desc;
-top10 = LIMIT ordered 10;
+top10 = LIMIT m_name 10;
 DUMP top10;
+
 
 
 
