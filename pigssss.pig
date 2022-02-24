@@ -10,4 +10,4 @@ joined = JOIN avg_ratings BY movie_id, movies BY movie_id;
 dataset = FOREACH joined GENERATE movies::movie_name as movie_name, avg_ratings::avg_rating as avg_rating, SIZE(movies::movie_name) as name;
 ordered = ORDER dataset BY name desc;
 top10 = LIMIT ordered 10;
-DUMP ordered;
+DUMP dataset;
